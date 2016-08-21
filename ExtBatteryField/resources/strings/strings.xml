@@ -1,0 +1,30 @@
+<strings>
+    <string id="AppName">ExtBatteryField</string>
+    
+    <string id="AppVersionTitle">Version</string>
+    <string id="AutoSwitchDelayTitle">Auto Switch Delay</string>
+    <string id="AutoSwitchDelayPrompt">Time in seconds till switching to next value</string>
+    <string id="AutoSwitchDelayError">Not given a valid Number between 0 and 10 (2 is default)</string>
+    <string id="EnableRecordingTitle">Enable recording to FIT-file</string>
+
+    <string id="label">---</string>
+	<string id="label_CurrentBatteryLevel">B% current</string>
+	<string id="label_BatteryLossSinceStart">B% dLoss</string>
+	<string id="label_BatteryLossPerTime">B% loss/h</string>
+	<string id="label_RemainingBatteryTime">tB remaining</string>
+
+	<string id="unit_CurrentBatteryLevel">%</string>
+	<string id="unit_BatteryLossSinceStart">%</string>
+	<string id="unit_BatteryLossPerTime">%/h</string>
+	<string id="unit_RemainingBatteryTime">min</string>
+
+    <string id="fit0_data_label">Battery</string>
+    <string id="fit0_graph_label">Battery level</string>
+    <string id="fit0_units">Percent</string>
+
+
+    <string id="hemoglobin_concentration_label">Hemoglobin Concentration</string>
+    <string id="hemoglobin_concentration_units">g/dl</string>
+    <string id="hemoglobin_percentage_label">Hemoglobin Percentage</string>
+    <string id="hemoglobin_percentage_units">%</string>
+</strings>

@@ -1,0 +1,25 @@
+<strings>
+    <string id="AppName">ExtBatteryField</string>
+
+    <string id="AppVersionTitle">Version</string>
+    <string id="AutoSwitchDelayTitle">Automatische Wechselverzögerung</string>
+    <string id="AutoSwitchDelayPrompt">Zeit in Sekunden bis der nächste Wert angezeigt wird</string>
+    <string id="AutoSwitchDelayError">Erwartet wird eine Nummer zwischen 0 und 10 (2 ist der Standardwert)</string>
+    <string id="EnableRecordingTitle">Aufzeichnung in der FIT-Datei aktiveren</string>
+
+    <string id="label">---</string>
+	<string id="label_CurrentBatteryLevel">B% aktuell</string>
+	<string id="label_BatteryLossSinceStart">B% Verlust</string>
+	<string id="label_BatteryLossPerTime">B% Verbrauch/h</string>
+	<string id="label_RemainingBatteryTime">tB Restzeit</string>
+
+	<string id="unit_CurrentBatteryLevel">%</string>
+	<string id="unit_BatteryLossSinceStart">%</string>
+	<string id="unit_BatteryLossPerTime">%/h</string>
+	<string id="unit_RemainingBatteryTime">min</string>
+	
+    <string id="fit0_data_label">Batterie</string>
+    <string id="fit0_graph_label">Batteriestand</string>
+    <string id="fit0_units">Prozent</string>
+
+</strings>
