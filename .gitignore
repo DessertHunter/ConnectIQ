@@ -51,3 +51,4 @@ local.properties
 # =========================
 *.prg
 *.prg.debug.prg
+/RemoteSystemsTempFiles/

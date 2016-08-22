@@ -18,13 +18,15 @@
 	<string id="unit_BatteryLossPerTime">%/h</string>
 	<string id="unit_RemainingBatteryTime">min</string>
 
-    <string id="fit0_data_label">Battery</string>
-    <string id="fit0_graph_label">Battery level</string>
-    <string id="fit0_units">Percent</string>
+    <string id="fit0_data_label">Battery (current)</string>
+    <string id="fit0_graph_label">Current battery level</string>
+    <string id="fit0_units">Percent [%]</string>
 
+    <string id="fit1_data_label">Battery loss (lap)</string>
+    <string id="fit1_graph_label">Battery level loss (lap)</string>
+    <string id="fit1_units">Delta percent [d%]</string>
 
-    <string id="hemoglobin_concentration_label">Hemoglobin Concentration</string>
-    <string id="hemoglobin_concentration_units">g/dl</string>
-    <string id="hemoglobin_percentage_label">Hemoglobin Percentage</string>
-    <string id="hemoglobin_percentage_units">%</string>
+    <string id="fit2_data_label">Battery loss (total)</string>
+    <string id="fit2_graph_label">Battery level loss (total)</string>
+    <string id="fit2_units">Delta percent [d%]</string>
 </strings>

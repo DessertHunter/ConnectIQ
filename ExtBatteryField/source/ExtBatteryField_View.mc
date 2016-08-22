@@ -91,6 +91,30 @@ class ExtBatteryField_View extends Ui.DataField {
 
         mFitRecording.compute(mBatteryStats);
 
+        // Wert je nach aktuellem Modus anzeigen
+        if (mCurrentMode == eModeCurrentBatteryLevel)
+        {
+            mValue = mBatteryStats.getBatteryLevel().format("%.1f");
+        }
+        else if (mCurrentMode == eModeBatteryLossSinceStart)
+        {
+            mValue = mBatteryStats.getBatteryLoss().format("%.1f");
+        }
+        else if (mCurrentMode == eModeBatteryLossPerTime)
+        {
+            mValue = mBatteryStats.getBatteryLossPerTime(Time.Gregorian.SECONDS_PER_HOUR).format("%.3f");
+        }
+        else if (mCurrentMode == eModeRemainingBatteryTime)
+        {
+            mValue = mBatteryStats.getRemainingBatteryTime().format("%.1f");
+        }
+        else
+        {
+            // DEBUG
+            mValue = 0.00;
+        }
+
+        // Modus automatisch weiterschalten?
         if (mAutoSwitchDelay_Current >= 1)
         {
             mAutoSwitchDelay_Current = mAutoSwitchDelay_Current - 1;
@@ -127,28 +151,6 @@ class ExtBatteryField_View extends Ui.DataField {
                 mLabel = "Mode? null";
                 mCurrentMode = eModeCurrentBatteryLevel;
             }
-        }
-
-        if (mCurrentMode == eModeCurrentBatteryLevel)
-        {
-            mValue = mBatteryStats.getBatteryLevel().format("%.1f");
-        }
-        else if (mCurrentMode == eModeBatteryLossSinceStart)
-        {
-            mValue = mBatteryStats.getBatteryLoss().format("%.1f");
-        }
-        else if (mCurrentMode == eModeBatteryLossPerTime)
-        {
-            mValue = mBatteryStats.getBatteryLossPerTime(Time.Gregorian.SECONDS_PER_HOUR).format("%.3f");
-        }
-        else if (mCurrentMode == eModeRemainingBatteryTime)
-        {
-            mValue = mBatteryStats.getRemainingBatteryTime().format("%.1f");
-        }
-        else
-        {
-            // DEBUG
-            mValue = 0.00;
         }
     }
 
