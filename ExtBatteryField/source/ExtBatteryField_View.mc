@@ -73,9 +73,9 @@ class ExtBatteryField_View extends Ui.DataField {
         } else {
             View.setLayout(Rez.Layouts.MainLayout(dc));
             var labelView = View.findDrawableById("label");
-            labelView.locY = labelView.locY - 16;
+            labelView.locY = labelView.locY - 22;
             var valueView = View.findDrawableById("value");
-            valueView.locY = valueView.locY + 7;
+            valueView.locY = valueView.locY + 12;
         }
 
         View.findDrawableById("label").setText(Rez.Strings.label);
@@ -87,32 +87,11 @@ class ExtBatteryField_View extends Ui.DataField {
     function compute(info) {
         // See Activity.Info in the documentation for available information.
 
+        // Zuerst neue Statistiken erstellen
         mBatteryStats.doUpdate();
 
+        // Aufzeichnungswerte aktualisieren
         mFitRecording.compute(mBatteryStats);
-
-        // Wert je nach aktuellem Modus anzeigen
-        if (mCurrentMode == eModeCurrentBatteryLevel)
-        {
-            mValue = mBatteryStats.getBatteryLevel().format("%.1f");
-        }
-        else if (mCurrentMode == eModeBatteryLossSinceStart)
-        {
-            mValue = mBatteryStats.getBatteryLoss().format("%.1f");
-        }
-        else if (mCurrentMode == eModeBatteryLossPerTime)
-        {
-            mValue = mBatteryStats.getBatteryLossPerTime(Time.Gregorian.SECONDS_PER_HOUR).format("%.3f");
-        }
-        else if (mCurrentMode == eModeRemainingBatteryTime)
-        {
-            mValue = mBatteryStats.getRemainingBatteryTime().format("%.1f");
-        }
-        else
-        {
-            // DEBUG
-            mValue = 0.00;
-        }
 
         // Modus automatisch weiterschalten?
         if (mAutoSwitchDelay_Current >= 1)
@@ -126,31 +105,50 @@ class ExtBatteryField_View extends Ui.DataField {
 
             if (mCurrentMode == eModeCurrentBatteryLevel)
             {
-                mLabel = Rez.Strings.label_CurrentBatteryLevel; // "B% current"
                 mCurrentMode = eModeBatteryLossSinceStart;
+                mLabel = Rez.Strings.label_BatteryLossSinceStart; // "B% dLoss"
             }
             else if (mCurrentMode == eModeBatteryLossSinceStart)
             {
-                mLabel = Rez.Strings.label_BatteryLossSinceStart; // "B% dLoss"
                 mCurrentMode = eModeBatteryLossPerTime;
+                mLabel = Rez.Strings.label_BatteryLossPerTime; // "B% Loss/h"
             }
             else if (mCurrentMode == eModeBatteryLossPerTime)
             {
-                mLabel = Rez.Strings.label_BatteryLossPerTime; // "B% Loss/h"
                 mCurrentMode = eModeRemainingBatteryTime;
-            }
-            else if (mCurrentMode == eModeRemainingBatteryTime)
-            {
                 mLabel = Rez.Strings.label_RemainingBatteryTime; // "tB Remaining"
-                mCurrentMode = eModeCurrentBatteryLevel;
             }
-            else
+            else // if (mCurrentMode == eModeRemainingBatteryTime)
             {
-                // DEBUG
-                Sys.println("Unknown Mode=" + mCurentMode);
-                mLabel = "Mode? null";
                 mCurrentMode = eModeCurrentBatteryLevel;
+                mLabel = Rez.Strings.label_CurrentBatteryLevel; // "B% current"
             }
+        }
+
+        // GUI-Wert je nach aktuellem Modus anzeigen
+        if (mCurrentMode == eModeCurrentBatteryLevel)
+        {
+            mValue = mBatteryStats.getBatteryLevel().format("%u") + "%";
+        }
+        else if (mCurrentMode == eModeBatteryLossSinceStart)
+        {
+            mValue = mBatteryStats.getBatteryLoss().format("%+d") + "%";
+        }
+        else if (mCurrentMode == eModeBatteryLossPerTime)
+        {
+            mValue = mBatteryStats.getBatteryLossPerTime(Time.Gregorian.SECONDS_PER_HOUR).format("%.2f");
+        }
+        else if (mCurrentMode == eModeRemainingBatteryTime)
+        {
+            var remaining_mins = mBatteryStats.getRemainingBatteryTime().toNumber();
+            var remaining_hours = remaining_mins / 60;
+            remaining_mins = remaining_mins % 60;
+            mValue = remaining_hours.format("%02u") + ":" + remaining_mins.format("%02u");
+        }
+        else
+        {
+            // DEBUG
+            mValue = "?";
         }
     }
 
