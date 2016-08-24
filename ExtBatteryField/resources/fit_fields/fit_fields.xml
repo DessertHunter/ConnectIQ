@@ -18,10 +18,8 @@
               displayInActivitySummary="false" 
               sortOrder="1" 
               precision="2" 
-              chartTitle="@Strings.fit1_graph_label" 
               dataLabel="@Strings.fit1_data_label" 
-              unitLabel="@Strings.fit1_units" 
-              fillColor="#00FF00" />
+              unitLabel="@Strings.fit1_units" />
 
 	<!-- battery_loss_sum, MESG_TYPE_SESSION -->
     <fitField id="2" 
@@ -30,8 +28,6 @@
               displayInActivitySummary="true" 
               sortOrder="2" 
               precision="2" 
-              chartTitle="@Strings.fit2_graph_label" 
               dataLabel="@Strings.fit2_data_label" 
-              unitLabel="@Strings.fit2_units" 
-              fillColor="#0000FF" />
+              unitLabel="@Strings.fit2_units" />
 </fitContributions>

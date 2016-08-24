@@ -131,4 +131,8 @@ class FitRecording {
     function onTimerReset() {
         mSessionRecordCount = 0;
     }
+
+    function getIsRecording() {
+        return (mTimerRunning && mEnableFitRecording);
+    }
 }

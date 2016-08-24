@@ -6,6 +6,10 @@
     <string id="AutoSwitchDelayPrompt">Zeit in Sekunden bis der nächste Wert angezeigt wird</string>
     <string id="AutoSwitchDelayError">Erwartet wird eine Nummer zwischen 0 und 10 (2 ist der Standardwert)</string>
     <string id="EnableRecordingTitle">Aufzeichnung in der FIT-Datei aktiveren</string>
+	<string id="ShowCurrentBatteryLevelTitle">Zeigt den aktuellen Batteristand an</string>
+	<string id="ShowBatteryLossSinceStartTitle">Zeigt den Batterieladestandverlust seit dem Start an</string>
+	<string id="ShowBatteryLossPerTimeTitle">Zeigt den Batterieverbrauch pro Zeit an (BETA)</string>
+	<string id="ShowRemainingBatteryTimeTitle">Zeigt die geschätzte Batterierestlaufzeit an (BETA)</string>
 
     <string id="label">---</string>
 	<string id="label_CurrentBatteryLevel">B% aktuell</string>
@@ -20,13 +24,13 @@
 
     <string id="fit0_data_label">Batterie (current)</string>
     <string id="fit0_graph_label">Aktueller Batteriestand</string>
-    <string id="fit0_units">Prozent [%]</string>
+    <string id="fit0_units">[%]</string>
 
     <string id="fit1_data_label">Batterieverlust (Runde)</string>
     <string id="fit1_graph_label">Batterieladestandverlust (Runde)</string>
-    <string id="fit1_units">Differenz Prozent [d%]</string>
+    <string id="fit1_units">[d%]</string>
 
     <string id="fit2_data_label">Batterieverlust (Summe)</string>
     <string id="fit2_graph_label">Batterieladestandverlust (Summe)</string>
-    <string id="fit2_units">Differenz Prozent [d%]</string>
+    <string id="fit2_units">[d%]</string>
 </strings>

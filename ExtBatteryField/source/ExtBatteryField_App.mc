@@ -6,6 +6,8 @@ using Toybox.System as Sys;
 
 class ExtBatteryField_App extends App.AppBase {
 
+    static hidden var mView = null; // class
+
     function initialize() {
         AppBase.initialize();
     }
@@ -20,12 +22,21 @@ class ExtBatteryField_App extends App.AppBase {
 
     //! Return the initial view of your application here
     function getInitialView() {
-        return [ new ExtBatteryField_View() ];
+        if (null == mView)
+        {
+            // singleton
+            mView = new ExtBatteryField_View();
+        }
+        return [ mView ];
     }
 
     //! Called when the application settings have been changed by Garmin Connect Mobile while the app is running.
     function onSettingsChanged() {
-        Sys.println("onSettingsChanged");
+        if (mView instanceof ExtBatteryField_View)
+        {
+            Sys.println("reloadSettings because onSettingsChanged");
+            mView.reloadSettings();
+        }
     }
 
 }

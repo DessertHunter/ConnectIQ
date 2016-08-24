@@ -3,6 +3,11 @@
     	<property id="appVersion" type="string">0.0.1</property>
         <property id="autoSwitchDelay" type="number">2</property>
         <property id="enableRecording" type="boolean">true</property>
+        
+        <property id="showCurrentBatteryLevel" type="boolean">true</property>
+        <property id="showBatteryLossSinceStart" type="boolean">true</property>
+        <property id="showBatteryLossPerTime" type="boolean">true</property>
+        <property id="showRemainingBatteryTime" type="boolean">true</property>
     </properties>
 
     <settings>
@@ -13,6 +18,19 @@
 	        <settingConfig type="numeric" min="0" max="10" errorMessage="@Strings.AutoSwitchDelayError" />
 	    </setting>
         <setting propertyKey="@Properties.enableRecording" title="@Strings.EnableRecordingTitle">
+            <settingConfig type="boolean" />
+        </setting>
+        
+        <setting propertyKey="@Properties.showCurrentBatteryLevel" title="@Strings.ShowCurrentBatteryLevelTitle">
+            <settingConfig type="boolean" readonly="true" />
+        </setting>
+        <setting propertyKey="@Properties.showBatteryLossSinceStart" title="@Strings.ShowBatteryLossSinceStartTitle">
+            <settingConfig type="boolean" />
+        </setting>
+        <setting propertyKey="@Properties.showBatteryLossPerTime" title="@Strings.ShowBatteryLossPerTimeTitle">
+            <settingConfig type="boolean" />
+        </setting>
+        <setting propertyKey="@Properties.showRemainingBatteryTime" title="@Strings.ShowRemainingBatteryTimeTitle">
             <settingConfig type="boolean" />
         </setting>
     </settings>

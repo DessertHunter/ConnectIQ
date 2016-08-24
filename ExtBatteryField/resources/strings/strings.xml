@@ -1,11 +1,16 @@
 <strings>
-    <string id="AppName">ExtBatteryField</string>
-    
+    <string id="AppName">Extended Battery Stats Field</string>
+
+	<!-- Settings -->    
     <string id="AppVersionTitle">Version</string>
     <string id="AutoSwitchDelayTitle">Auto Switch Delay</string>
     <string id="AutoSwitchDelayPrompt">Time in seconds till switching to next value</string>
     <string id="AutoSwitchDelayError">Not given a valid Number between 0 and 10 (2 is default)</string>
     <string id="EnableRecordingTitle">Enable recording to FIT-file</string>
+	<string id="ShowCurrentBatteryLevelTitle">Show current battery Level</string>
+	<string id="ShowBatteryLossSinceStartTitle">Show battery loss since start</string>
+	<string id="ShowBatteryLossPerTimeTitle">Show battery loss per time (BETA)</string>
+	<string id="ShowRemainingBatteryTimeTitle">Show estimated remaining battery time (BETA)</string>
 
     <string id="label">---</string>
 	<string id="label_CurrentBatteryLevel">B% current</string>
@@ -20,13 +25,13 @@
 
     <string id="fit0_data_label">Battery (current)</string>
     <string id="fit0_graph_label">Current battery level</string>
-    <string id="fit0_units">Percent [%]</string>
+    <string id="fit0_units">[%]</string>
 
     <string id="fit1_data_label">Battery loss (lap)</string>
     <string id="fit1_graph_label">Battery level loss (lap)</string>
-    <string id="fit1_units">Delta percent [d%]</string>
+    <string id="fit1_units">[d%]</string>
 
     <string id="fit2_data_label">Battery loss (total)</string>
     <string id="fit2_graph_label">Battery level loss (total)</string>
-    <string id="fit2_units">Delta percent [d%]</string>
+    <string id="fit2_units">[d%]</string>
 </strings>
