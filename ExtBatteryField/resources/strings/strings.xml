@@ -12,7 +12,8 @@
 	<string id="ShowBatteryLossPerTimeTitle">Show battery loss per time (BETA)</string>
 	<string id="ShowRemainingBatteryTimeTitle">Show estimated remaining battery time (BETA)</string>
 
-    <string id="label">---</string>
+    <string id="no_value">---</string>
+    
 	<string id="label_CurrentBatteryLevel">B% current</string>
 	<string id="label_BatteryLossSinceStart">B% dLoss</string>
 	<string id="label_BatteryLossPerTime">B% loss/h</string>

@@ -1,6 +1,7 @@
 <strings>
-    <string id="AppName">ExtBatteryField</string>
+    <string id="AppName">Extended Battery Stats Field</string>
 
+	<!-- Settings -->    
     <string id="AppVersionTitle">Version</string>
     <string id="AutoSwitchDelayTitle">Automatische Wechselverzögerung</string>
     <string id="AutoSwitchDelayPrompt">Zeit in Sekunden bis der nächste Wert angezeigt wird</string>
@@ -11,7 +12,8 @@
 	<string id="ShowBatteryLossPerTimeTitle">Zeigt den Batterieverbrauch pro Zeit an (BETA)</string>
 	<string id="ShowRemainingBatteryTimeTitle">Zeigt die geschätzte Batterierestlaufzeit an (BETA)</string>
 
-    <string id="label">---</string>
+    <string id="no_value">---</string>
+    
 	<string id="label_CurrentBatteryLevel">B% aktuell</string>
 	<string id="label_BatteryLossSinceStart">B% Verlust</string>
 	<string id="label_BatteryLossPerTime">B% Verbrauch/h</string>
