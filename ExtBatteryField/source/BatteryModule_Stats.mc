@@ -10,6 +10,7 @@ module BatteryModule
     {
         const MIN_DURATION_BEFORE_CALC = 30; // Mindestzeitspanne vor der Ermittlung einer Hochrechnung
         const MAX_REMAINING_SECONDS_TILL_EMPTY = 20 * Time.Gregorian.SECONDS_PER_HOUR; // Maximal errechnete Restlaufzeit in Sekunden
+        const INVALID_REMAINING_BATTERY_TIME = 0; // Ungültige Restlaufzeit
 
         enum {
             eUnitPerSecond = 1, // keine Umrechnung nötig
@@ -34,15 +35,13 @@ module BatteryModule
             //var seconds = 0;
             //var duration = new Time.Duration(seconds);
             //var differnce = duration.subtract(rest);
+            var rest = Time.now().subtract(mStartMoment); // Moment - Moment = Duration
+            mLossInSeconds = rest.value();
 
             var newBatteryLevel = getBatteryLevel();
             if (mLastBatteryLevel != newBatteryLevel) {
                 // Abweichelnder Batteriestand (egal ob größer oder kleiner)
                 mLastBatteryLevel = newBatteryLevel;
-
-                var rest = Time.now().subtract(mStartMoment); // Moment - Moment = Duration
-                mLossInSeconds = rest.value();
-
                 calcBatteryLoss();
             }
         }
@@ -51,7 +50,7 @@ module BatteryModule
             mBatteryLoss = mLastBatteryLevel - mStartBatteryLevel;
 
             // DEBUG
-            Sys.println("Neuer Bat_Loss=" + mBatteryLoss.format("%.2f") + "; Duration=" + mLossInSeconds);
+            // Sys.println("Neuer Bat_Loss=" + mBatteryLoss.format("%.2f") + "; Duration=" + mLossInSeconds);
         }
 
         //! Zeigt den Verbrauch in Prozent seit dem Beginn der Aktivität an
@@ -71,7 +70,7 @@ module BatteryModule
                 }
                 else if (mBatteryLoss > 0.0) {
                     // Batterie wird geladen, daher keine Hochrechnung möglich!
-                    secondsTillEmpty = MAX_REMAINING_SECONDS_TILL_EMPTY;
+                    secondsTillEmpty = INVALID_REMAINING_BATTERY_TIME;
                 }
                 else {
                     // Fehler mBatteryLoss==0, noch kein Abfall detektiert, daher keine Hochrechnung möglich!
@@ -80,10 +79,12 @@ module BatteryModule
             }
             else {
                 // Fehler, noch nicht genügend Zeit verstrichen oder noch kein neuer Batterylevel, daher keine Hochrechnung möglich!
-                secondsTillEmpty = -1.0;
+                secondsTillEmpty = INVALID_REMAINING_BATTERY_TIME;
             }
 
-            return mLossInSeconds; // [min]
+            // DEBUG
+            // Sys.print("getRemainingBatteryTime="); Sys.println(secondsTillEmpty);
+            return secondsTillEmpty.toNumber(); // [s]
         }
 
         //! Zeigt den aktuellen Verbrauch in "Ladestand in Prozent" pro Zeit an

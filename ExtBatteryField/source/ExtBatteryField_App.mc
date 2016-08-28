@@ -34,7 +34,7 @@ class ExtBatteryField_App extends App.AppBase {
     function onSettingsChanged() {
         if (mView instanceof ExtBatteryField_View)
         {
-            Sys.println("reloadSettings because onSettingsChanged");
+            // DEBUG Sys.println("reloadSettings because onSettingsChanged");
             mView.reloadSettings();
         }
     }

@@ -28,8 +28,8 @@ class ExtBatteryField_View extends Ui.DataField {
     hidden var mShowBatteryLossPerTime_Setting;
     hidden var mShowRemainingBatteryTime_Setting;
 
-    hidden var mLabel = "";
-    hidden var mValue = 0.0;
+    hidden var mLabel; // class Object oder String
+    hidden var mValue; // class String oder Number
     hidden var mBatteryStats; // class BatteryModule.Stats
 
     //! Constructor
@@ -56,33 +56,52 @@ class ExtBatteryField_View extends Ui.DataField {
         }
         mAutoSwitchDelay_Current = mAutoSwitchDelay_Setting;
 
-        // "B% current"
-        if (app.getProperty("showCurrentBatteryLevel")){
-            mNextModeLookup[eModeCurrentBatteryLevel] = eModeBatteryLossSinceStart;
-        } else {
-            mNextModeLookup[eModeCurrentBatteryLevel] = eModeCurrentBatteryLevel;
+        // Reihenfolge: 1->2->3->4->1-> ...
+        for (var i = 0; i < NUM_MODI; i += 1) {
+            mNextModeLookup[i] = evaluateNextMode(i);
         }
+    }
 
-        // "B% dLoss"
-        if (app.getProperty("showBatteryLossSinceStart")) {
-            mNextModeLookup[eModeBatteryLossSinceStart] = eModeBatteryLossPerTime;
-        } else {
-            mNextModeLookup[eModeCurrentBatteryLevel] = eModeCurrentBatteryLevel;
-        }
+    //! Ermittelt rekursiv den nächsten Modus, anhand der Applikationseinstellungen
+    hidden function evaluateNextMode(mode) {
+        var app = App.getApp(); // class Application
+        var next_mode = eModeCurrentBatteryLevel; // Fallback
 
-        // "B% Loss/h"
-        if (app.getProperty("showBatteryLossPerTime")) {
-            mNextModeLookup[eModeBatteryLossPerTime] = eModeRemainingBatteryTime;
-        } else {
-            mNextModeLookup[eModeCurrentBatteryLevel] = eModeCurrentBatteryLevel;
+        if (mode == eModeCurrentBatteryLevel) // 1: "B% current"
+        {
+            next_mode = eModeBatteryLossSinceStart; // 1->2
+            if (false == app.getProperty("showBatteryLossSinceStart")) {
+                next_mode = evaluateNextMode(next_mode); // Feld ist ausgeblendet, nächstes anzuzeigendes Feld suchen
+            }
         }
-
-        // "tB Remaining"
-        if (app.getProperty("showRemainingBatteryTime")) {
-            mNextModeLookup[eModeRemainingBatteryTime] = eModeCurrentBatteryLevel;
-        } else {
-            mNextModeLookup[eModeCurrentBatteryLevel] = eModeCurrentBatteryLevel;
+        else if (mode == eModeBatteryLossSinceStart) // 2: "B% dLoss"
+        {
+            next_mode = eModeBatteryLossPerTime; // 2->3
+            if (false == app.getProperty("showBatteryLossPerTime")) {
+                next_mode = evaluateNextMode(next_mode); // Feld ist ausgeblendet, nächstes anzuzeigendes Feld suchen
+            }
         }
+        else if (mode == eModeBatteryLossPerTime) // 3: "B% Loss/h"
+        {
+            next_mode = eModeRemainingBatteryTime; // 3->4
+            if (false == app.getProperty("showRemainingBatteryTime")) {
+                next_mode = evaluateNextMode(next_mode); // Feld ist ausgeblendet, nächstes anzuzeigendes Feld suchen
+            }
+        }
+        else if (mode == eModeRemainingBatteryTime) // 4: "tB Remaining"
+        {
+            next_mode = eModeCurrentBatteryLevel; // 4->1 (neue Runde)
+            if (false == app.getProperty("showCurrentBatteryLevel")) {
+                // DEBUG
+                Sys.println("Property showCurrentBatteryLevel is not FALSE!");
+            }
+        }
+        else
+        {
+            // DEBUG
+            Sys.print("evaluateNextMode Unknown Mode "); Sys.println(mode);
+        }
+        return next_mode;
     }
 
     //! Set your layout here. Anytime the size of obscurity of
@@ -110,12 +129,11 @@ class ExtBatteryField_View extends Ui.DataField {
         } else {
             View.setLayout(Rez.Layouts.MainLayout(dc));
             var labelView = View.findDrawableById("label");
-            labelView.locY = labelView.locY - 22;
+            labelView.locY = labelView.locY - 20; // vom 'center' bisschen nach oben verschieben
             var valueView = View.findDrawableById("value");
-            valueView.locY = valueView.locY + 12;
+            valueView.locY = valueView.locY + 12; // vom 'center' bisschen nach unten verschieben
         }
 
-        View.findDrawableById("label").setText(Rez.Strings.label);
         return true;
     }
 
@@ -156,21 +174,27 @@ class ExtBatteryField_View extends Ui.DataField {
         else if (mCurrentMode == eModeBatteryLossPerTime)
         {
             mLabel = Rez.Strings.label_BatteryLossPerTime; // "B% Loss/h"
-            mValue = mBatteryStats.getBatteryLossPerTime(Time.Gregorian.SECONDS_PER_HOUR).format("%.2f");
+            mValue = mBatteryStats.getBatteryLossPerTime(Time.Gregorian.SECONDS_PER_HOUR).format("%.1f"); // Eine Nachkommstelle anzeigen
         }
         else if (mCurrentMode == eModeRemainingBatteryTime)
         {
             mLabel = Rez.Strings.label_RemainingBatteryTime; // "tB Remaining"
 
-            var remaining_mins = mBatteryStats.getRemainingBatteryTime().toNumber();
-            var remaining_hours = remaining_mins / 60;
-            remaining_mins = remaining_mins % 60;
-            mValue = remaining_hours.format("%02u") + ":" + remaining_mins.format("%02u");
+            var remaining_seconds = mBatteryStats.getRemainingBatteryTime(); // [s]
+            if (remaining_seconds != BatteryModule.Stats.INVALID_REMAINING_BATTERY_TIME) {
+                var remaining_mins = remaining_seconds / Time.Gregorian.SECONDS_PER_MINUTE;
+                var remaining_hours = remaining_mins / 60;
+                remaining_mins = remaining_mins % 60;
+                remaining_seconds = remaining_seconds % 60;
+                mValue = remaining_hours.format("%u") + ":" + remaining_mins.format("%02u") + ":" + remaining_seconds.format("%02u");
+            } else {
+                mValue = Rez.Strings.no_value;
+            }
         }
         else
         {
             // DEBUG
-            mValue = "?";
+            mValue = "? MODE ?";
         }
     }
 
@@ -179,7 +203,7 @@ class ExtBatteryField_View extends Ui.DataField {
     function onUpdate(dc) {
         // Set the background color
         var bg_drawable = View.findDrawableById("Background");
-        if (null != bg_drawable)
+        if (bg_drawable instanceof Background)
         {
             bg_drawable.setColor(getBackgroundColor());
             bg_drawable.setRecording(mFitRecording.getIsRecording());
@@ -193,24 +217,20 @@ class ExtBatteryField_View extends Ui.DataField {
             value.setColor(Gfx.COLOR_BLACK);
         }
 
-        if (mValue instanceof Toybox.Lang.Number)
-        {
+        if (mValue instanceof Toybox.Lang.Number) {
             value.setText(mValue.format("%.2f"));
-        }
-        else if (mValue instanceof Toybox.Lang.String)
-        {
+        } else if (mValue instanceof Toybox.Lang.String) {
             value.setText(mValue);
-        }
-        else
-        {
-            value.setText("---");
-
-            // DEBUG
-            // System.println("Value is not a number or string!");
+        } else {
+            value.setText(Rez.Strings.no_value);
         }
 
         var label = View.findDrawableById("label");
-        label.setText(mLabel);
+        if ((mLabel instanceof Toybox.Lang.Object) || (mLabel instanceof Toybox.Lang.String)) {
+            label.setText(mLabel);
+        } else {
+            label.setText(Rez.Strings.no_value);
+        }
 
         // Call parent's onUpdate(dc) to redraw the layout
         View.onUpdate(dc);
