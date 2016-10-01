@@ -1,28 +1,28 @@
 <strings>
     <string id="AppName">Extended Battery Stats Field</string>
 
-	<!-- Settings -->    
+    <!-- Settings -->
     <string id="AppVersionTitle">Version</string>
     <string id="AutoSwitchDelayTitle">Automatische Wechselverzögerung</string>
     <string id="AutoSwitchDelayPrompt">Zeit in Sekunden bis der nächste Wert angezeigt wird</string>
     <string id="AutoSwitchDelayError">Erwartet wird eine Nummer zwischen 0 und 10 (2 ist der Standardwert)</string>
-    <string id="EnableRecordingTitle">Aufzeichnung in der FIT-Datei aktiveren</string>
-	<string id="ShowCurrentBatteryLevelTitle">Zeigt den aktuellen Batteristand an</string>
-	<string id="ShowBatteryLossSinceStartTitle">Zeigt den Batterieladestandverlust seit dem Start an</string>
-	<string id="ShowBatteryLossPerTimeTitle">Zeigt den Batterieverbrauch pro Zeit an (BETA)</string>
-	<string id="ShowRemainingBatteryTimeTitle">Zeigt die geschätzte Batterierestlaufzeit an (BETA)</string>
+    <string id="EnableRecordingTitle">Aufzeichnung in der FIT-Datei aktivieren</string>
+    <string id="ShowCurrentBatteryLevelTitle">Zeigt den aktuellen Batteriestand an</string>
+    <string id="ShowBatteryLossSinceStartTitle">Zeigt den Batterieladestandverlust seit dem Start an</string>
+    <string id="ShowBatteryLossPerTimeTitle">Zeigt den Batterieverbrauch pro Zeit an (BETA)</string>
+    <string id="ShowRemainingBatteryTimeTitle">Zeigt die geschätzte Batterierestlaufzeit an (BETA)</string>
 
     <string id="no_value">---</string>
-    
-	<string id="label_CurrentBatteryLevel">B% aktuell</string>
-	<string id="label_BatteryLossSinceStart">B% Verlust</string>
-	<string id="label_BatteryLossPerTime">B% Verbrauch/h</string>
-	<string id="label_RemainingBatteryTime">tB Restzeit</string>
 
-	<string id="unit_CurrentBatteryLevel">%</string>
-	<string id="unit_BatteryLossSinceStart">%</string>
-	<string id="unit_BatteryLossPerTime">%/h</string>
-	<string id="unit_RemainingBatteryTime">min</string>
+    <string id="label_CurrentBatteryLevel">B% aktuell</string>
+    <string id="label_BatteryLossSinceStart">B% Verlust</string>
+    <string id="label_BatteryLossPerTime">B% Verbrauch/h</string>
+    <string id="label_RemainingBatteryTime">tB Restzeit</string>
+
+    <string id="unit_CurrentBatteryLevel">%</string>
+    <string id="unit_BatteryLossSinceStart">%</string>
+    <string id="unit_BatteryLossPerTime">%/h</string>
+    <string id="unit_RemainingBatteryTime">min</string>
 
     <string id="fit0_data_label">Batterie (current)</string>
     <string id="fit0_graph_label">Aktueller Batteriestand</string>

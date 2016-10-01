@@ -1,28 +1,28 @@
 <strings>
     <string id="AppName">Extended Battery Stats Field</string>
 
-	<!-- Settings -->    
+	<!-- Settings -->
     <string id="AppVersionTitle">Version</string>
     <string id="AutoSwitchDelayTitle">Auto Switch Delay</string>
     <string id="AutoSwitchDelayPrompt">Time in seconds till switching to next value</string>
     <string id="AutoSwitchDelayError">Not given a valid Number between 0 and 10 (2 is default)</string>
     <string id="EnableRecordingTitle">Enable recording to FIT-file</string>
-	<string id="ShowCurrentBatteryLevelTitle">Show current battery Level</string>
-	<string id="ShowBatteryLossSinceStartTitle">Show battery loss since start</string>
-	<string id="ShowBatteryLossPerTimeTitle">Show battery loss per time (BETA)</string>
-	<string id="ShowRemainingBatteryTimeTitle">Show estimated remaining battery time (BETA)</string>
+    <string id="ShowCurrentBatteryLevelTitle">Show current battery Level</string>
+    <string id="ShowBatteryLossSinceStartTitle">Show battery loss since start</string>
+    <string id="ShowBatteryLossPerTimeTitle">Show battery loss per time (BETA)</string>
+    <string id="ShowRemainingBatteryTimeTitle">Show estimated remaining battery time (BETA)</string>
 
     <string id="no_value">---</string>
-    
-	<string id="label_CurrentBatteryLevel">B% current</string>
-	<string id="label_BatteryLossSinceStart">B% dLoss</string>
-	<string id="label_BatteryLossPerTime">B% loss/h</string>
-	<string id="label_RemainingBatteryTime">tB remaining</string>
 
-	<string id="unit_CurrentBatteryLevel">%</string>
-	<string id="unit_BatteryLossSinceStart">%</string>
-	<string id="unit_BatteryLossPerTime">%/h</string>
-	<string id="unit_RemainingBatteryTime">min</string>
+    <string id="label_CurrentBatteryLevel">B% current</string>
+    <string id="label_BatteryLossSinceStart">B% dLoss</string>
+    <string id="label_BatteryLossPerTime">B% loss/h</string>
+    <string id="label_RemainingBatteryTime">tB remaining</string>
+
+    <string id="unit_CurrentBatteryLevel">%</string>
+    <string id="unit_BatteryLossSinceStart">%</string>
+    <string id="unit_BatteryLossPerTime">%/h</string>
+    <string id="unit_RemainingBatteryTime">min</string>
 
     <string id="fit0_data_label">Battery (current)</string>
     <string id="fit0_graph_label">Current battery level</string>

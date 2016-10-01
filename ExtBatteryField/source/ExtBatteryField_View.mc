@@ -42,7 +42,7 @@ class ExtBatteryField_View extends Ui.DataField {
         reloadSettings();
     }
 
-    //! Lädt die Einstellungen neu
+    //! Lï¿½dt die Einstellungen neu
     function reloadSettings() {
         var app = App.getApp(); // class Application
 
@@ -62,7 +62,7 @@ class ExtBatteryField_View extends Ui.DataField {
         }
     }
 
-    //! Ermittelt rekursiv den nächsten Modus, anhand der Applikationseinstellungen
+    //! Ermittelt rekursiv den nï¿½chsten Modus, anhand der Applikationseinstellungen
     hidden function evaluateNextMode(mode) {
         var app = App.getApp(); // class Application
         var next_mode = eModeCurrentBatteryLevel; // Fallback
@@ -71,21 +71,21 @@ class ExtBatteryField_View extends Ui.DataField {
         {
             next_mode = eModeBatteryLossSinceStart; // 1->2
             if (false == app.getProperty("showBatteryLossSinceStart")) {
-                next_mode = evaluateNextMode(next_mode); // Feld ist ausgeblendet, nächstes anzuzeigendes Feld suchen
+                next_mode = evaluateNextMode(next_mode); // Feld ist ausgeblendet, nï¿½chstes anzuzeigendes Feld suchen
             }
         }
         else if (mode == eModeBatteryLossSinceStart) // 2: "B% dLoss"
         {
             next_mode = eModeBatteryLossPerTime; // 2->3
             if (false == app.getProperty("showBatteryLossPerTime")) {
-                next_mode = evaluateNextMode(next_mode); // Feld ist ausgeblendet, nächstes anzuzeigendes Feld suchen
+                next_mode = evaluateNextMode(next_mode); // Feld ist ausgeblendet, nï¿½chstes anzuzeigendes Feld suchen
             }
         }
         else if (mode == eModeBatteryLossPerTime) // 3: "B% Loss/h"
         {
             next_mode = eModeRemainingBatteryTime; // 3->4
             if (false == app.getProperty("showRemainingBatteryTime")) {
-                next_mode = evaluateNextMode(next_mode); // Feld ist ausgeblendet, nächstes anzuzeigendes Feld suchen
+                next_mode = evaluateNextMode(next_mode); // Feld ist ausgeblendet, nï¿½chstes anzuzeigendes Feld suchen
             }
         }
         else if (mode == eModeRemainingBatteryTime) // 4: "tB Remaining"
@@ -155,7 +155,7 @@ class ExtBatteryField_View extends Ui.DataField {
         }
         else
         {
-            // Ablauf der Verzögerung, nächsen Modi anzeigen
+            // Ablauf der Verzï¿½gerung, nï¿½chsen Modi anzeigen
             mAutoSwitchDelay_Current = mAutoSwitchDelay_Setting;
             mCurrentMode = mNextModeLookup[mCurrentMode];
         }
@@ -236,26 +236,32 @@ class ExtBatteryField_View extends Ui.DataField {
         View.onUpdate(dc);
     }
 
+    //! The timer was started, so set the state to running.
     function onTimerStart() {
         mFitRecording.setTimerRunning(true);
     }
 
+    //! The timer was stopped, so set the state to stopped.
     function onTimerStop() {
         mFitRecording.setTimerRunning(false);
     }
 
+    //! The timer was started, so set the state to running.
     function onTimerPause() {
         mFitRecording.setTimerRunning(false);
     }
 
+    //! The timer was stopped, so set the state to stopped.
     function onTimerResume() {
         mFitRecording.setTimerRunning(true);
     }
 
+    //! This is called each time a lap is created, so increment the lap number.
     function onTimerLap() {
         mFitRecording.onTimerLap();
     }
 
+    //! The timer was reeset, so reset all our tracking variables
     function onTimerReset() {
         mFitRecording.onTimerReset();
     }

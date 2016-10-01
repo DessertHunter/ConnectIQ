@@ -86,13 +86,13 @@ class FitRecording {
 
     function compute(battery_stats) {
 
-        if( battery_stats != null ) {
+        if (mEnableFitRecording && (battery_stats != null)) {
 
             var battery_level = toFixed( battery_stats.getBatteryLevel(), 1 );
             mBatteryLevelFitField.setData(battery_level);
 
 
-            if( mTimerRunning ) {
+            if (mTimerRunning) {
                 // Update lap/session data and record counts
                 var battery_loss = toFixed( battery_stats.getBatteryLoss(), 1 );
 
