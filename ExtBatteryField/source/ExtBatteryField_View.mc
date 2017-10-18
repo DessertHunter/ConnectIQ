@@ -30,11 +30,13 @@ class ExtBatteryField_View extends Ui.DataField {
 
     hidden var mLabel; // class Object oder String
     hidden var mValue; // class String oder Number
+    hidden var mIsSmallField;
     hidden var mBatteryStats; // class BatteryModule.Stats
 
     //! Constructor
     function initialize() {
         DataField.initialize();
+        mIsSmallField = true;
 
         mBatteryStats = new BatteryModule.Stats();
         mFitRecording = new FitRecording(self);
@@ -107,6 +109,13 @@ class ExtBatteryField_View extends Ui.DataField {
     //! Set your layout here. Anytime the size of obscurity of
     //! the draw context is changed this will be called.
     function onLayout(dc) {
+        // Kleines Datenfeld? Z.B. wegen zweispaltigem Layout
+        if (dc.getTextWidthInPixels("HH:MM:SS", Gfx.FONT_LARGE) < dc.getWidth()) {
+            mIsSmallField = false;
+        } else {
+            mIsSmallField = true;
+        }
+
         var obscurityFlags = DataField.getObscurityFlags();
 
         // Top left quadrant so we'll use the top left layout
@@ -129,9 +138,15 @@ class ExtBatteryField_View extends Ui.DataField {
         } else {
             View.setLayout(Rez.Layouts.MainLayout(dc));
             var labelView = View.findDrawableById("label");
-            labelView.locY = labelView.locY - 20; // vom 'center' bisschen nach oben verschieben
             var valueView = View.findDrawableById("value");
-            valueView.locY = valueView.locY + 12; // vom 'center' bisschen nach unten verschieben
+
+            if (mIsSmallField) {
+                labelView.locY = labelView.locY - 15; // vom 'center' bisschen nach oben verschieben
+                valueView.locY = valueView.locY + 10; // vom 'center' bisschen nach unten verschieben
+            } else {
+                labelView.locY = labelView.locY - 20; // vom 'center' bisschen nach oben verschieben
+                valueView.locY = valueView.locY + 12; // vom 'center' bisschen nach unten verschieben
+            }
         }
 
         return true;
@@ -180,15 +195,28 @@ class ExtBatteryField_View extends Ui.DataField {
         {
             mLabel = Rez.Strings.label_RemainingBatteryTime; // "tB Remaining"
 
-            var remaining_seconds = mBatteryStats.getRemainingBatteryTime(); // [s]
-            if (remaining_seconds != BatteryModule.Stats.INVALID_REMAINING_BATTERY_TIME) {
+            var remaining_seconds = mBatteryStats.getRemainingBatteryTime().toNumber(); // [s]
+
+            if ((remaining_seconds != null) && (remaining_seconds != BatteryModule.Stats.INVALID_REMAINING_BATTERY_TIME)) {
+
                 var remaining_mins = remaining_seconds / Time.Gregorian.SECONDS_PER_MINUTE;
                 var remaining_hours = remaining_mins / 60;
                 remaining_mins = remaining_mins % 60;
                 remaining_seconds = remaining_seconds % 60;
-                mValue = remaining_hours.format("%u") + ":" + remaining_mins.format("%02u") + ":" + remaining_seconds.format("%02u");
+
+                if (mIsSmallField) {
+                    mValue = remaining_hours.format("%u") + ":" + remaining_mins.format("%02u"); // ohne Sekunden wegen Platz + ":" + remaining_seconds.format("%02u");
+                } else {
+                    mValue = remaining_hours.format("%u") + ":" + remaining_mins.format("%02u") + ":" + remaining_seconds.format("%02u");
+                }
             } else {
-                mValue = Rez.Strings.no_value;
+                // Rez.Strings.no_value kann hier nicht verwendet werden, da dies nur eine Ressourcen Number bzw. Symbol ist, welche dann in onUpdate als String formatiert werden w�rde
+
+                if (mIsSmallField) {
+                    mValue = "HH:MM";
+                } else {
+                    mValue = "HH:MM:SS";
+                }
             }
         }
         else
